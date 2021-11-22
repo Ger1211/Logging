@@ -16,10 +16,11 @@ let router = express.Router();
 let port = process.env.PORT || 3002;
 app.use(express.json());
 
-router.get("/", function (req, res) {
-  res.status(200);
-  res.json({ message: "hooray! welcome to our API" });
-});
+router.post("/artists/creation", (req, res) => {
+  getLogging().addArtistCreationLog(req.body)
+    .then(() => res.status(201).send())
+    .catch((error) => res.status(error.statusCode).send(error.error)); 
+})
 
 function errorHandler(err, req, res, next) {
   if (err instanceof SyntaxError || err instanceof InvalidBodyError) {
