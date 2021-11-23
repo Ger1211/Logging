@@ -21,6 +21,36 @@ router.post("/artists/creation", (req, res) => {
     .then(() => res.status(201).send())
     .catch((error) => res.status(error.statusCode).send(error.error)); 
 })
+.post("/albums/creation", (req, res) => {
+  getLogging().addAlbumCreationLog(req.body)
+    .then(() => res.status(201).send())
+    .catch((error) => res.status(error.statusCode).send(error.error)); 
+})
+.post("/tracks/creation", (req, res) => {
+  getLogging().addTrackCreationLog(req.body)
+    .then(() => res.status(201).send())
+    .catch((error) => res.status(error.statusCode).send(error.error)); 
+})
+.post("/turnOnOff", (req, res) => {
+  const status = getLogging().turnOnOff();
+  res.status(201).send({status:status})
+})
+.post("/artists/elimination", (req, res) => {
+  getLogging().deleteArtistCreationLog(req.body)
+    .then(() => res.status(201).send())
+    .catch((error) => res.status(error.statusCode).send(error.error)); 
+})
+.post("/albums/elimination", (req, res) => {
+  getLogging().deleteAlbumCreationLog(req.body)
+    .then(() => res.status(201).send())
+    .catch((error) => res.status(error.statusCode).send(error.error)); 
+})
+.post("/tracks/elimination", (req, res) => {
+  getLogging().deleteTrackCreationLog(req.body)
+    .then(() => res.status(201).send())
+    .catch((error) => res.status(error.statusCode).send(error.error)); 
+})
+
 
 function errorHandler(err, req, res, next) {
   if (err instanceof SyntaxError || err instanceof InvalidBodyError) {
