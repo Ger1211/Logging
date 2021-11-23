@@ -354,3 +354,5 @@ MigrationBackup/
 data.json
 
 spotifyCreds.json
+
+logs.txt
