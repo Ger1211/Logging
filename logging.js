@@ -1,11 +1,11 @@
 const picklify = require("picklify");
 const fs = require("fs");
 const util = require("util");
+const loggly = require("./LogglyAPIClient");
 class Logging {
   constructor() {
     this.enable = true;
   }
-
 
   turnOnOff(){
     let status;
@@ -20,26 +20,36 @@ class Logging {
     return status;
   }
 
-
-
   addArtistCreationLog(data) {
     if (this.enable) {
       const appendFile = util.promisify(fs.appendFile);
-      return appendFile("logs.txt", `[INFO] - Artist ${data.name} was created.\n`);
+      let promise = appendFile("logs.txt", `[INFO] - Artist ${data.name} was created.\n`);
+      loggly.log('info', `Artist ${data.name} was created.`);
+      return promise;
+    } else {
+      return Promise.resolve();
     }
   }
 
   addAlbumCreationLog(data) {
     if (this.enable) {
       const appendFile = util.promisify(fs.appendFile);
-      return appendFile("logs.txt", `[INFO] - Album ${data.albumName} was created.\n`);
+      let promise = appendFile("logs.txt", `[INFO] - Album ${data.albumName} was created.\n`);
+      loggly.log('info', `Album ${data.albumName} was created.`);
+      return promise;
+    } else {
+      return Promise.resolve();
     }
   }
 
   addTrackCreationLog(data) {
     if (this.enable) {
       const appendFile = util.promisify(fs.appendFile);
-      return appendFile("logs.txt", `[INFO] - Track ${data.name} was created.\n`);
+      let promise =  appendFile("logs.txt", `[INFO] - Track ${data.name} was created.\n`);
+      loggly.log('info', `Track ${data.name} was created.`);
+      return promise;
+    } else {
+      return Promise.resolve();
     }
   }
 
@@ -47,25 +57,35 @@ class Logging {
   deleteArtistCreationLog(data){
     if (this.enable) {
       const appendFile = util.promisify(fs.appendFile);
-      return appendFile("logs.txt", `[INFO] - Artist ${data.name} was eliminated.\n`);
+      let promise = appendFile("logs.txt", `[INFO] - Artist ${data.name} was eliminated.\n`);
+      loggly.log('info', `Artist ${data.name} was eliminated.`);
+      return promise;
+    } else {
+      return Promise.resolve();
     }
   }
 
   deleteAlbumCreationLog(data){
     if (this.enable) {
       const appendFile = util.promisify(fs.appendFile);
-      return appendFile("logs.txt", `[INFO] - Album ${data.name} was eliminated.\n`);
+      let promise = appendFile("logs.txt", `[INFO] - Album ${data.name} was eliminated.\n`);
+      loggly.log('info', `Album ${data.name} was eliminated.`);
+      return promise;
+    } else {
+      return Promise.resolve();
     }
   }
 
   deleteTrackCreationLog(data){
     if (this.enable) {
       const appendFile = util.promisify(fs.appendFile);
-      return appendFile("logs.txt", `[INFO] - Track ${data.name} was eliminated.\n`);
+      let promise = appendFile("logs.txt", `[INFO] - Track ${data.name} was eliminated.\n`);
+      loggly.log('info', `Track ${data.name} was eliminated.`);
+      return promise;
+    } else {
+      return Promise.resolve();
     }
   }
-
-
 
   save(filename) {
     const serializedData = picklify.picklify(this);
