@@ -16,7 +16,10 @@ let router = express.Router();
 let port = process.env.PORT || 3002;
 app.use(express.json());
 
-router.post("/artists/creation", (req, res) => {
+router.get("/status", function (req, res) {
+  res.status(200).send();
+})
+.post("/artists/creation", (req, res) => {
   getLogging().addArtistCreationLog(req.body)
     .then(() => res.status(201).send())
     .catch((error) => res.status(error.statusCode).send(error.error)); 
